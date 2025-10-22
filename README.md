@@ -13,8 +13,6 @@ while a == 1:
             myfile.close()
         except:
             print('Ошибка,')
-        finally:
-            print("Книга добавлена")
 
     elif starts == "1":
         try:
@@ -33,8 +31,8 @@ while a == 1:
             books = myfile.readlines(title)
             del books [title]
             myfile.close()
-        finally:
-            print("Книга удалена")
+        except:
+            print("Ошибка, такой книги нет")
 
     elif starts == "4":
         try:
