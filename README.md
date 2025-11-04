@@ -1,48 +1,42 @@
-a = 1
-while a == 1:
-    starts = input("найти книгу по названию - 1  \n"
-                   "удалить книгу - 2  \n"
-                   "добавить книгу - 3  \n"
-                   "удалить все - 4   \n"
-                   "вывести весь файл - 5 \n")
-    if starts == "3":
-        try:
-            tittle_book = input('Введите название книги и год через двоеточие: ')
-            myfile = open('books.txt', 'a')
-            myfile.write(tittle_book + '\n')
-            myfile.close()
-        except:
-            print('Ошибка,')
-
-    elif starts == "1":
-        try:
-            myfile = open('books.txt', 'r')
-            content = input("название: ")
-            print(content.get)
-            myfile.close()
-            print(content)
-        except:
-            print("Ошибка, такой книги нет")
-
-    elif starts == "2":
-        try:
-            title = input('Введите название книги которую хотите удалить')
-            myfile = open('books.txt', 'w')
-            books = myfile.readlines(title)
-            del books [title]
-            myfile.close()
-        except:
-            print("Ошибка, такой книги нет")
-
-    elif starts == "4":
-        try:
-            myfile = open('books.txt', 'r').close()
-        except:
-            print("Ошибка")
-
-    elif starts == "5":
+b = 1
+books = []
+def save_books_file():
+    with open('books.txt', 'w') as file:
+        file.write(",".join(map(str, books)))
+while b == 1:
+    print("добавить книгу - 1\n"
+          "удалить книгу - 2\n"
+          "найти книгу - 3\n"
+          "удалить все книги - 4\n"
+          "вывести все - 5\n"
+          "заменить - 6 ")
+    a = input()
+    if a == "1":
+        title_and_year = input("Введите название и год книги: ")
+        books.append(title_and_year)
+        save_books_file()
+        print(f'Книга "{title_and_year}" успешно добавлена.')
+    elif a == "5":
         myfile = open('books.txt', 'r')
         concept = myfile.read()
         print(concept)
+    elif a == "2":
+        title_and_year = input("Введите название и год книги для удаления: ")
+        books.remove(title_and_year)
+        save_books_file()
+    elif a == "4":
+        books.clear()
+        save_books_file()
+    if a == "6":
+        old = input("Введите название и год книги, которую хотите заменить: ")
+        new = input("Введите новое название и год книги: ")
+        index = books.index(old)
+        books[index] = new
+        save_books_file()
+    elif a == "3":
+        myfile = open('books.txt', 'r', encoding='utf-8')
+        content = myfile.read()
+        myfile.close()
+        print(content)
     else:
-        print("ошибка")
+        print("баг")
